@@ -23,39 +23,39 @@ This assignment builds a **single application** that you'll develop incrementall
 - [X] **Problem**: Both endpoints are actually public! Anyone can access the "protected" one.
 
 ### Step 2: Add API Documentation
-- [ ] Add Swagger/OpenAPI documentation for both endpoints
-- [ ] Serve interactive docs at `/api-docs`
-- [ ] Document request/response schemas
-- [ ] Test both endpoints through Swagger UI
+- [X] Add Swagger/OpenAPI documentation for both endpoints
+- [X] Serve interactive docs at `/api-docs`
+- [X] Document request/response schemas
+- [X] Test both endpoints through Swagger UI
 
 ### Step 3: Create User System
-- [ ] Create an in-memory list of users with different roles:
+- [X] Create an in-memory list of users with different roles:
   ```javascript
   const users = [
     { id: 1, username: "admin", password: "admin123", role: "admin" },
     { id: 2, username: "user", password: "user123", role: "basic" }
   ];
   ```
-- [ ] **Problem**: How do we know which user is making the request to `/api/protected`?
+- [X] **Problem**: How do we know which user is making the request to `/api/protected`?
 
 ### Step 4: Add Authentication Middleware (First Attempt)
-- [ ] Create middleware that checks if user is admin
-- [ ] Apply it to the protected endpoint
-- [ ] **Problem**: There's no way to identify the user from the request! We need some way to know who they are.
+- [X] Create middleware that checks if user is admin
+- [X] Apply it to the protected endpoint
+- [X] **Problem**: There's no way to identify the user from the request! We need some way to know who they are.
 
 ### Step 5: Introduce User Secrets
-- [ ] Give each user a unique SECRET:
+- [X] Give each user a unique SECRET:
   ```javascript
   const users = [
     { id: 1, username: "admin", password: "admin123", role: "admin", secret: "admin-secret-123" },
     { id: 2, username: "user", password: "user123", role: "basic", secret: "user-secret-456" }
   ];
   ```
-- [ ] Update middleware to check for secret in:
-  - [ ] `Authorization` header: `Bearer admin-secret-123`
+- [X] Update middleware to check for secret in:
+  - [X] `Authorization` header: `Bearer admin-secret-123`
   - [ ] OR Cookie: `secret=admin-secret-123`
-- [ ] Find user by secret, check if role is "admin"
-- [ ] **Success**: Now the protected endpoint actually works!
+- [X] Find user by secret, check if role is "admin"
+- [X] **Success**: Now the protected endpoint actually works!
 
 ### Step 6: Realize the Problems with Secrets
 Discuss these security issues:
