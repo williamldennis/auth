@@ -10,8 +10,8 @@ const router = Router()
 
 /**
  * @swagger
- * /login:
- *   get:
+ * /auth/login:
+ *   post:
  *     summary: Login
  *     description: User login
  *     responses:
@@ -90,8 +90,8 @@ router.post('/login', (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /logout:
- *   get:
+ * /auth/logout:
+ *   post:
  *     summary: Log Out
  *     description: User logout
  *     responses:
@@ -120,5 +120,8 @@ router.post('/logout', (req: Request, res: Response) => {
         message: 'Logout successful'
     } as ApiResponse)
 })
+
+
+export default router
 
 //todo REST OF FILE

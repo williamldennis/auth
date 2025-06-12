@@ -3,6 +3,7 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import { checkAuth } from './middleware/auth';
+import authRoutes from './routes/auth'
 
 const app = express()
 const PORT = 3000
@@ -28,6 +29,8 @@ const swaggerOptions = {
 
 //generate swagger spec
 const swaggerDocs = swaggerJsdoc(swaggerOptions)
+
+app.use('/auth', authRoutes)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
