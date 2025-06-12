@@ -1,8 +1,8 @@
 import { Router, type Request, type Response } from 'express'
-import { AuthenticatedRequest, LoginRequest, ApiResponse, LoginResponse} from '../types/index.ts'
+import type { AuthenticatedRequest, LoginRequest, ApiResponse, LoginResponse} from '../types/index.ts'
 import { signJWT } from '@/utils/jwt'
-import { findUserByUserName, getDatabaseState } from '../config/database.ts'
-import { authenticateToken, authenticateSecret, requireAdmin} from '../middleware/auth.ts'
+import { findUserByUserName } from '../config/database.ts'
+import { authenticateToken } from '../middleware/auth.ts'
 
 const router = Router()
 
@@ -16,7 +16,7 @@ router.post('/login', (req: Request, res: Response) => {
     
     //validate input
     if(!username || !password) {
-        return res.status(400).json({
+        res.status(400).json({
             success: false,
             error: 'Validation failed',
             message: 'Username and password are required'
@@ -27,7 +27,7 @@ router.post('/login', (req: Request, res: Response) => {
     const user = findUserByUserName(username)
     if (!user || user.password !== password) {
         console.log('LOGIN failed');
-        return res.status(401).json({
+        res.status(401).json({
             success: false,
             error: 'Authentication failed',
             message: 'Invalid username or password'
@@ -56,7 +56,7 @@ router.post('/login', (req: Request, res: Response) => {
             id: user.id,
             username: user.username,
             role: user.role,
-            createdAat: user.createdAt
+            createdAt: user.createdAt
         },
         message: 'Login successful'
     }
