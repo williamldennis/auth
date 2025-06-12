@@ -7,7 +7,26 @@ import { authenticateToken } from '../middleware/auth.ts'
 const router = Router()
 
 
-//to do @swagger
+
+/**
+ * @swagger
+ * /login:
+ *   get:
+ *     summary: Login
+ *     description: User login
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content: 
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message: 
+ *                   type: string
+ *                   example: "User can login"
+ */
+
 
 router.post('/login', (req: Request, res: Response) => {
     console.log('LOGIN attempting login...')
@@ -69,7 +88,25 @@ router.post('/login', (req: Request, res: Response) => {
     
 })
 
-//to do @swagger
+/**
+ * @swagger
+ * /logout:
+ *   get:
+ *     summary: Log Out
+ *     description: User logout
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content: 
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message: 
+ *                   type: string
+ *                   example: "User can log out"
+ */
+
 
 
 router.post('/logout', (req: Request, res: Response) => {

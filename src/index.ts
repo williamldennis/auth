@@ -23,7 +23,7 @@ const swaggerOptions = {
             { url: 'http://localhost:3000'}
         ]
     },
-    apis: ['./src/index.ts']
+    apis: ['./src/index.ts', './src/routes/auth.ts']
 }
 
 //generate swagger spec
@@ -49,10 +49,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
  *                   type: string
  *                   example: "This is public information"
  */
-
-
-
-
 
 app.get('/api/public', (req, res) => {
     res.json({ message: "This is public information"}) 
