@@ -2,6 +2,9 @@ import cors from 'cors'
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
+import { checkAuth } from './middleware/auth';
+import authRoutes from './routes/auth'
+
 const app = express()
 const PORT = 3000
 
@@ -21,11 +24,13 @@ const swaggerOptions = {
             { url: 'http://localhost:3000'}
         ]
     },
-    apis: ['./server.ts']
+    apis: ['./src/index.ts', './src/routes/auth.ts']
 }
 
 //generate swagger spec
 const swaggerDocs = swaggerJsdoc(swaggerOptions)
+
+app.use('/auth', authRoutes)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
@@ -48,10 +53,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
  *                   example: "This is public information"
  */
 
-
-
-
-
 app.get('/api/public', (req, res) => {
     res.json({ message: "This is public information"}) 
 })
@@ -73,23 +74,7 @@ app.get('/api/public', (req, res) => {
  *                   type: string
  *                   example: "Only admins should be able to see this"
  */
-const users = [
-  { id: 1, username: "admin", password: "admin123", role: "admin", secret: "admin-secret-123" },
-  { id: 2, username: "user", password: "user123", role: "basic", secret: "user-secret-456" }
-];
 
-const checkAuth = (req, res, next) => {
-    const authHeader = req.headers.authorization
-
-    const token = authHeader.split(' ')[1]
-
-    const user = users.find( u => u.secret === token)
-    
-    if (user && user.role === "admin") {
-        next()
-    } else
-    res.status(401).json({error: 'Not authorized'})
-}
 
 app.get('/api/protected', checkAuth, (req, res) => {
     res.json({ message: "Only admins should be able to see this"}) 
